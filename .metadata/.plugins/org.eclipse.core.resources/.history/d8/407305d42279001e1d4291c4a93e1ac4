@@ -1,0 +1,28 @@
+package br.com.fiap.gestao.service;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import br.com.fiap.gestao.dao.UsuarioDao;
+import br.com.fiap.gestao.factory.ConnectionFactory;
+import br.com.fiap.gestao.model.User;
+
+public class UsuarioService {
+	private UsuarioDao dao;
+	
+	
+	public UsuarioService() throws ClassNotFoundException, SQLException {
+		Connection conexao = ConnectionFactory.getConnection();
+		
+		dao = new UsuarioDao(conexao);
+		
+	}
+	
+	public void Cadastrar(User usuario) throws SQLException {
+		//validacoes
+		
+		
+		dao.cadastrar(usuario);
+	}
+	
+}

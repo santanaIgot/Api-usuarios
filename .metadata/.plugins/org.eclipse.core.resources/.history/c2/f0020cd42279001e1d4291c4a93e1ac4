@@ -1,0 +1,27 @@
+package br.com.fiap.gestao.teste;
+
+import java.sql.Connection;
+import java.time.LocalDate;
+
+import br.com.fiap.gestao.dao.UsuarioDao;
+import br.com.fiap.gestao.factory.ConnectionFactory;
+import br.com.fiap.gestao.model.User;
+
+public class Cadastrar {
+	public static void main(String[] args) {
+		try {
+			Connection conexao = ConnectionFactory.getConnection();
+			
+			UsuarioDao dao = new UsuarioDao(conexao);
+			
+			User usuario = new User("Luqinhas","luquinhas03@gmail.com","214874742",LocalDate.of(2003, 05, 20));
+			
+			dao.cadastrar(usuario);
+			
+			System.out.println(usuario.getId());
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
