@@ -2298,3 +2298,6 @@ Caused by: sun.security.provider.certpath.SunCertPathBuilderException: unable to
 	at java.base/java.security.cert.CertPathBuilder.build(CertPathBuilder.java:297)
 	at java.base/sun.security.validator.PKIXValidator.doBuild(PKIXValidator.java:434)
 	... 32 more
+
+!ENTRY org.eclipse.wst.server.core 4 0 2023-11-07 20:57:12.697
+!MESSAGE Server Tomcat v10.1 Server at localhost failed to start.

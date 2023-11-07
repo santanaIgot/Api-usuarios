@@ -2,7 +2,7 @@ package br.com.fiap.gestao.teste;
 
 import java.time.LocalDate;
 import java.util.List;
-import br.com.fiap.gestao.resource.*;
+
 import br.com.fiap.gestao.model.User;
 import br.com.fiap.gestao.service.UsuarioService;
 

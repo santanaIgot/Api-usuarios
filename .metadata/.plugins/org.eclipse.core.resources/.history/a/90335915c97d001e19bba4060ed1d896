@@ -33,9 +33,11 @@ public class UsuarioResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> listar()   throws SQLException{
+	public List<User> listar() throwsSQLException {
 		
-		return service.listar();
+		
+		return null;
+		
 	}
 	
 	@POST

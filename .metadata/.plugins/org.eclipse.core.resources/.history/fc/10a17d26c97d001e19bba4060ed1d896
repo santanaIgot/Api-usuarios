@@ -2,7 +2,6 @@ package br.com.fiap.gestao.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 import br.com.fiap.gestao.dao.UsuarioDao;
 import br.com.fiap.gestao.exception.BadInfoException;
@@ -21,11 +20,6 @@ public class UsuarioService {
 		
 	}
 	
-	
-	public List<User> listar() throws SQLException {
-		return dao.Listar();
-	}
-	
 	public void Cadastrar(User usuario) throws SQLException, BadInfoException {
 		//validacoes
 		
@@ -39,9 +33,5 @@ public class UsuarioService {
 			throw new BadInfoException("cpf invalido");
 		dao.cadastrar(usuario);
 	}
-
-
-
-
-
+	
 }
