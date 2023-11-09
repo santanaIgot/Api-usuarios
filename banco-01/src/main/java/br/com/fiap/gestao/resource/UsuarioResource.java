@@ -8,6 +8,7 @@ import br.com.fiap.gestao.exception.IdNotFoundException;
 import br.com.fiap.gestao.model.User;
 import br.com.fiap.gestao.service.UsuarioService;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -63,7 +64,12 @@ public class UsuarioResource {
 		}
 	}
 //	delete/id
-	
+	@DELETE
+	@Path("/{id}")
+	public Response remover(@PathParam("id") int id) throws SQLException {
+		service.remover(id);
+		return Response.noContent().build();
+	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

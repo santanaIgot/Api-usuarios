@@ -117,4 +117,11 @@ public class UsuarioDao {
 		
 		user.setId(codigo);
 	}
+	
+	
+	public void remover(int id) throws SQLException {
+		PreparedStatement stm = conexao.prepareStatement("delete from tb_usuario where cd_usuario = ?");
+		stm.setInt(1, id);
+		stm.executeUpdate();
+	}
 }

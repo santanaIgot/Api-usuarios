@@ -23,6 +23,10 @@ public class UsuarioService {
 		
 	}
 	
+	public void remover(int id) throws SQLException {
+		dao.remover(id);
+	}
+	
 	public void atualizar(User user) throws SQLException, IdNotFoundException, BadInfoException{
 		validar(user);
 		dao.atualizar(user);
