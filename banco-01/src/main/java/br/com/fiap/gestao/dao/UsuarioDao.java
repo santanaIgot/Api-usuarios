@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fiap.gestao.exception.IdNotFoundException;
 import br.com.fiap.gestao.model.User;
 
 public class UsuarioDao {
@@ -19,6 +20,41 @@ public class UsuarioDao {
 		this.conexao = conexao;
 	}
 	
+	
+	public User pesquisar(int id) throws SQLException, IdNotFoundException {
+		PreparedStatement stm  = conexao .
+				prepareStatement("Select * from tb_usuario where cd_usuario = ?"
+						+ "");
+		stm.setInt(1, id);
+		
+		ResultSet result = stm.executeQuery();
+		
+		if(!result.next()) {
+			throw new IdNotFoundException("User não encontrado");
+		}
+		User user = parseUsuario(result);
+		return user;
+		
+	}
+	
+	public void atualizar(User user) throws SQLException, IdNotFoundException  {
+		PreparedStatement stm = conexao.prepareStatement("update tb_usuario set nm_usuario = ?, nr_cpf = ?,"
+				+ " ds_email = ?, dt_nascimento = ? where cd_usuario = ?");
+		
+		stm.setString(1, user.getNome());
+		stm.setString(2, user.getCpf());
+		stm.setString(3, user.getEmail());
+		stm.setObject(4,user.getDataNascimento());
+		stm.setInt(5, user.getId());
+		
+		
+		int x = stm.executeUpdate();
+		
+		if (x == 0)
+			throw new IdNotFoundException("Usuario nao encontrado");
+	}
+	
+	
 	public List<User> Listar() throws SQLException{
 		PreparedStatement stm  = conexao .
 				prepareStatement("Select * from tb_usuario");
@@ -28,19 +64,7 @@ public class UsuarioDao {
 		List<User> lista= new ArrayList<>();
 		
 		while(result.next()) {
-			int codigo = result.getInt("cd_usuario");
-			String nome = result.getString("nm_usuario");
-			java.sql.Timestamp dataNasc = result.getTimestamp("dt_nascimento");
-			LocalDateTime dataCadastro = result.getObject("dt_cadastro", LocalDateTime.class);
-			String cpf = result.getString("nr_cpf");
-			String email = result.getString("ds_email");
-			
-			
-			User user = new User( codigo,  nome, 
-					 email, 
-					 cpf, 
-					 dataCadastro, 
-					 dataNasc.toLocalDateTime().toLocalDate());
+			User user = parseUsuario(result);
 			
 			
 			lista.add(user);
@@ -48,6 +72,24 @@ public class UsuarioDao {
 		
 		
 		return lista;
+	}
+
+
+	private User parseUsuario(ResultSet result) throws SQLException {
+		int codigo = result.getInt("cd_usuario");
+		String nome = result.getString("nm_usuario");
+		java.sql.Timestamp dataNasc = result.getTimestamp("dt_nascimento");
+		LocalDateTime dataCadastro = result.getObject("dt_cadastro", LocalDateTime.class);
+		String cpf = result.getString("nr_cpf");
+		String email = result.getString("ds_email");
+		
+		
+		User user = new User( codigo,  nome, 
+				 email, 
+				 cpf, 
+				 dataCadastro, 
+				 dataNasc.toLocalDateTime().toLocalDate());
+		return user;
 	}
 	
 	
